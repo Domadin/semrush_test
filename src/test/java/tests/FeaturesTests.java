@@ -19,7 +19,7 @@ import static org.testng.Assert.assertEquals;
 @Feature("Features page")
 public class FeaturesTests extends BaseTestConfig {
 
-    @Test(description = "Открытие страницы Features через пункт навбара")
+    @Test(description = "Open Features page via navbar")
     public void testOpenFeatures() {
         open("/");
         $(by("data-test", "header_features")).click();
@@ -29,7 +29,7 @@ public class FeaturesTests extends BaseTestConfig {
         assertEquals(WebDriverRunner.url(), Configuration.baseUrl + "/features/");
     }
 
-    @Test(description = "Открытие страницы Sign up через кнопку на странице Features")
+    @Test(description = "Open Sign up page via a button on Features page")
     public void testOpenSignUp() {
         open("/features");
         $(byText("Sign up for free")).click();
@@ -39,7 +39,7 @@ public class FeaturesTests extends BaseTestConfig {
         assertEquals(WebDriverRunner.url(), Configuration.baseUrl + "/signup/?src=features");
     }
 
-    @Test(description = "Раздел Features. Выбор вкладки Advertising, проверка отображаемых блоков Features.")
+    @Test(description = "Features section. Filter Features by Advertising.")
     public void chooseAdvertTab() {
         open("/features");
         $(".semrush-features__choose-tabs").$(byText("Advertising")).scrollTo().click();

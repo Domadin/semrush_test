@@ -16,7 +16,8 @@ import static io.qameta.allure.Allure.step;
 @Epic("Land page")
 @Feature("Pricing page")
 public class PricingTests extends BaseTestConfig {
-    @Test(description = "Проверка ценовых значений таблицы Plans & Pricing по умолчанию (ежемесячно)")
+
+    @Test(description = "Check default rates in Plans & Pricing table (monthly payment)")
     public void testPricingDefault() {
         open("/prices");
 
@@ -36,7 +37,7 @@ public class PricingTests extends BaseTestConfig {
                 .shouldHave(text("per month"));
     }
 
-    @Test(description = "Проверка ценовых значений таблицы Plans & Pricing при оплате за год")
+    @Test(description = "Check rates in Plans & Pricing table for annual payment method")
     public void testPricingAnnual() {
         open("/prices");
         $(by("data-test", "pill-annual")).click();
@@ -57,7 +58,7 @@ public class PricingTests extends BaseTestConfig {
                 .shouldHave(text("per month"));
     }
 
-    @Test(description = "Проверка значений тарифов Feature comparison для ряда Historical data")
+    @Test(description = "Feature comparison table. Check Historical data values for different rates")
     public void testHistoricalData() {
         open("/prices");
         $(by("data-test", "pill-annual")).click();
@@ -67,7 +68,7 @@ public class PricingTests extends BaseTestConfig {
                         .scrollTo().$(byText("Historical data"));
 
 
-        step("Убедиться в наличии попапа с подсказкой для Historical data", () -> {
+        step("Check Historical data info popup", () -> {
             historicalDataCell.$(by("data-name", "Info"))
                     .hover();
             $(byText("Go back in time and gain insight into your or your" +
@@ -75,17 +76,19 @@ public class PricingTests extends BaseTestConfig {
                     " gathered since 2012.")).shouldBe(visible);
         });
 
-        step("Убедиться в недоступности опции Historical data для тарифа Pro", () -> {
+        step("Check Historical data availability for Pro", () -> {
             historicalDataCell.sibling(0).$("img")
                     .shouldBe(image)
                     .shouldHave(attribute("alt", "no"));
         });
-        step("Убедиться в доступности опции Historical data для тарифа Guru", () -> {
+
+        step("Check Historical data availability for Guru", () -> {
             historicalDataCell.sibling(1).$("img")
                     .shouldBe(image)
                     .shouldHave(attribute("alt", "yes"));
         });
-        step("Убедиться в доступности опции Historical data для тарифа Business", () -> {
+
+        step("Check Historical data availability for Business", () -> {
             historicalDataCell.sibling(2).$("img")
                     .shouldBe(image)
                     .shouldHave(attribute("alt", "yes"));
