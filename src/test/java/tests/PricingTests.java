@@ -1,6 +1,8 @@
 package tests;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.*;
@@ -8,7 +10,11 @@ import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.Allure.step;
 
+
+@Epic("Land page")
+@Feature("Pricing page")
 public class PricingTests extends BaseTestConfig {
     @Test(description = "Проверка ценовых значений таблицы Plans & Pricing по умолчанию (ежемесячно)")
     public void testPricingDefault() {
@@ -61,22 +67,28 @@ public class PricingTests extends BaseTestConfig {
                         .scrollTo().$(byText("Historical data"));
 
 
-        historicalDataCell.$(by("data-name", "Info"))
-                .hover();
-        $(byText("Go back in time and gain insight into your or your" +
-                " competitors websites’ performance with Semrush historical data" +
-                " gathered since 2012.")).shouldBe(visible);
+        step("Убедиться в наличии попапа с подсказкой для Historical data", () -> {
+            historicalDataCell.$(by("data-name", "Info"))
+                    .hover();
+            $(byText("Go back in time and gain insight into your or your" +
+                    " competitors websites’ performance with Semrush historical data" +
+                    " gathered since 2012.")).shouldBe(visible);
+        });
 
-        historicalDataCell.sibling(0).$("img")
-                .shouldBe(image)
-                .shouldHave(attribute("alt", "no"));
-
-        historicalDataCell.sibling(1).$("img")
-                .shouldBe(image)
-                .shouldHave(attribute("alt", "yes"));
-
-        historicalDataCell.sibling(2).$("img")
-                .shouldBe(image)
-                .shouldHave(attribute("alt", "yes"));
+        step("Убедиться в недоступности опции Historical data для тарифа Pro", () -> {
+            historicalDataCell.sibling(0).$("img")
+                    .shouldBe(image)
+                    .shouldHave(attribute("alt", "no"));
+        });
+        step("Убедиться в доступности опции Historical data для тарифа Guru", () -> {
+            historicalDataCell.sibling(1).$("img")
+                    .shouldBe(image)
+                    .shouldHave(attribute("alt", "yes"));
+        });
+        step("Убедиться в доступности опции Historical data для тарифа Business", () -> {
+            historicalDataCell.sibling(2).$("img")
+                    .shouldBe(image)
+                    .shouldHave(attribute("alt", "yes"));
+        });
     }
 }

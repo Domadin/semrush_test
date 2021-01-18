@@ -3,14 +3,20 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertEquals;
 
+
+@Epic("Land page")
+@Feature("Features page")
 public class FeaturesTests extends BaseTestConfig {
 
     @Test(description = "Открытие страницы Features через пункт навбара")
@@ -33,7 +39,7 @@ public class FeaturesTests extends BaseTestConfig {
         assertEquals(WebDriverRunner.url(), Configuration.baseUrl + "/signup/?src=features");
     }
 
-    @Test(description = "Выбор вкладки сферы интересов Advertising")
+    @Test(description = "Раздел Features. Выбор вкладки Advertising, проверка отображаемых блоков Features.")
     public void chooseAdvertTab() {
         open("/features");
         $(".semrush-features__choose-tabs").$(byText("Advertising")).scrollTo().click();
