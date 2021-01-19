@@ -17,26 +17,6 @@ import static io.qameta.allure.Allure.step;
 @Feature("Pricing page")
 public class PricingTests extends BaseTestConfig {
 
-    @Test(description = "Check default rates in Plans & Pricing table (monthly payment)")
-    public void testPricingDefault() {
-        open("/prices");
-
-        $(by("data-test", "plan-card__pro"))
-                .shouldHave(text("$119"))
-                .shouldHave(text(".95"))
-                .shouldHave(text("per month"));
-
-        $(by("data-test", "plan-card__guru"))
-                .shouldHave(text("$229"))
-                .shouldHave(text(".95"))
-                .shouldHave(text("per month"));
-
-        $(by("data-test", "plan-card__business"))
-                .shouldHave(text("$449"))
-                .shouldHave(text(".95"))
-                .shouldHave(text("per month"));
-    }
-
     @Test(description = "Check rates in Plans & Pricing table for annual payment method")
     public void testPricingAnnual() {
         open("/prices");
