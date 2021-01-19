@@ -15,8 +15,8 @@ public abstract class BaseTestConfig {
 
         //Browser settings
         Configuration.browserSize = "1920x1080";
-        if ("remote".equals(System.getProperty("remote"))) {
-            Configuration.remote = "some selenoin/moon url";
+        if ("remote".equals(System.getProperty("test.env"))) {
+            Configuration.remote = "https://user1:1234@" + System.getProperty("remote.browser.url") + ":4444/wd/hub/";
         }
 
         DesiredCapabilities dc = new DesiredCapabilities();

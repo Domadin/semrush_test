@@ -23,6 +23,10 @@ test {
     useTestNG()
 }
 
+task testRemote(type: Test) {
+    systemProperty("test.env", "remote")
+}
+
 dependencies {
     testCompile 'org.testng:testng:7.3.0'
 
