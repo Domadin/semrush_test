@@ -23,7 +23,13 @@ test {
     useTestNG()
 }
 
+test {
+    systemProperties(System.getProperties())
+    systemProperty("test.env", "local")
+}
+
 task testRemote(type: Test) {
+    systemProperties(System.getProperties())
     systemProperty("test.env", "remote")
 }
 
